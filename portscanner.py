@@ -7,8 +7,8 @@ def scan(name, port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((name, port))
-        sock.send(b'200 OK\r\n')
-        banner = str(sock.recv(256), 'ascii')
+        #sock.send(b'200 OK\r\n')
+        #banner = str(sock.recv(256), 'ascii')
         service = socket.getservbyport(port)
         print("[+] {}/{} is open".format(port, service))
         print("[+] Protocol: TCP")
@@ -36,7 +36,7 @@ def main():
     socket.setdefaulttimeout(1)
     
   
-    max_threads = 500
+    max_threads = 50
     with ThreadPoolExecutor(max_workers=max_threads) as executor:
         for port in range(start_port, end_port + 1):
             executor.submit(scan, tgt_host, port)
